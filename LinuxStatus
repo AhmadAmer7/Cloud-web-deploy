@@ -1,0 +1,134 @@
+#!/bin/bash
+
+
+#display welcome screen
+function welcome_screen {
+    clear
+    echo "Welcome to Linux status my friend :)"
+    echo "--------------------------------------------"
+    echo "Current date: $(date)"
+    echo "--------------------------------------------"
+    echo "Current user: $(whoami)"
+    echo "--------------------------------------------"
+    echo "The current Linux version is: $(cat /etc/*-release)"
+    echo "--------------------------------------------"
+    echo ""
+    echo ""
+    echo "Please select an option:"
+    echo "1. List the running processes"
+    echo "2. Check memory status and free memory in RAM"
+    echo "3. Check hard disk status and free memory in HDD"
+    echo "4. Check if Apache is installed and its version"
+    echo "5. Exit"
+}
+
+#List the running processes including all details information
+function list_processes {
+    ps aux
+}
+
+#Check memory status and free memory in RAM
+function memory_status {
+    free -h
+}
+
+#Check hard disk status and free memory in HDD
+function hard_disk {
+    df -h
+}
+
+#Check if Apache is installed and its version
+function apache_install {
+    if ! command -v apache2 > /dev/null; then
+        echo "Apache is not installed"
+    else
+        apache2 -v
+    fi
+}
+
+#display the options and get user input
+function option {
+    echo ""
+    while true; do
+        echo ""
+        echo "Please select an option:"
+        echo "1. Back to main view"
+        echo "2. Update the view"
+        echo "3. Exit"
+        read option
+        case $option in
+            1)
+                welcome_screen
+                break
+                ;;
+            2)
+                 case $selected_option in
+                    1) list_processes;;
+                    2) memory_status;;
+                    3) hard_disk;;
+                    4) apache_install;;
+                    *) echo "Invalid option !!!!!";;
+                esac
+                ;;           
+            3)
+                exit 0
+                ;;
+            *)
+                echo "Invalid option selected"
+                ;;
+        esac
+    done
+}
+
+function input {
+    read selected_option
+    case $selected_option in
+        1)
+            list_processes
+            ;;
+        2)
+            memory_status
+            ;;
+        3)
+            hard_disk
+            ;;
+        4)
+            apache_install
+            ;;
+        5)
+            exit 0
+            ;;
+        *)
+            echo "Invalid option selected"
+            ;;
+    esac
+}
+
+if [[ $# -gt 0 ]]; then
+    for arg in "$@"; do
+        case $arg in
+            p)
+                list_processes
+                ;;
+            r)
+                memory_status
+                ;;
+            h)
+                hard_disk
+                ;;
+            a)
+                apache_install
+                ;;
+            *)
+                echo "Invalid argument: $arg"
+                exit 1
+                ;;
+        esac
+    done
+else
+    welcome_screen
+    while true; do
+        input
+        option
+    done
+fi
