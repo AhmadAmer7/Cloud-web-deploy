@@ -1,0 +1,51 @@
+#!/bin/bash
+
+git clone https://github.com/mkassaf/SimpleApacheApp.git /tmp/SimpleApacheApp
+
+# 2 Install Apache2
+if ! command -v apache2 &> /dev/null
+then
+  echo "Install Apache2"
+sleep1
+  apt-get update
+ apt-get install -y apache2
+fi
+
+# 3 Move website pages
+echo "Move  website pages to /var/www/SimpleApp"
+sleep1
+   rm -rf /var/www/SimpleApp
+ mkdir /var/www/SimpleApp
+      cp -r /tmp/SimpleApacheApp/App/* /var/www/SimpleApp/
+
+# 4  Move config file
+echo "Move config file to /etc/apache2/sites-available..."
+sleep 1
+cp /tmp/SimpleApacheApp/simpleApp.conf /etc/apache2/sites-available/
+# 5 Disable default config and enable new config
+echo "Disable default Apache config and enabling new config"
+sleep 1
+a2dissite 000-default.conf
+a2ensite simpleApp.conf
+
+# 6 Verify installation
+echo "Verifying installation"
+curl -I http://localhost > /dev/null
+if [ $? -eq 0 ]
+then
+    echo "successful install"
+else
+    echo "Install failed."
+fi
+
+#  7  Log all steps
+    LOGS="install_$(date +%Y%m%d).log"
+ echo "Logging to ${LOGS}..."
+          exec &> >(tee -a "${LOGS}")
+
+# 8 Clean up
+sleep 2
+echo "Cleaning up"
+rm -rf /tmp/SimpleApacheApp
+
+
