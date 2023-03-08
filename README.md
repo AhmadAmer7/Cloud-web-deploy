@@ -1,14 +1,22 @@
-#script1: 
+
+#script1.
+
+
 LinuxStatus 	 
  navigate to the directory where it is saved and enter the following command:
         ./LinuxStatus.sh
 The LinuxStatus script accepts command-line arguments to display the output of a specific option and exit. Here are the available arguments:
 
 p: Displays the output of option 1 (list processes) and exits.
+
 r: Displays the output of option 2 (memory status) and exits.
+
 h: Displays the output of option 3 (hard disk usage) and exits.
+
 a: Displays the output of option 4 (check Apache status) and exits.
+
 Mix: You can use a combination of arguments, such as prah, to display the output of multiple options and exit.
+
 
 To use these arguments, simply add them after the script name when running the script. For example, to display the output of option 1 and exit, you can run:
 LinuxStatus p
