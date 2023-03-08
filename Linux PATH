@@ -1,0 +1,15 @@
+To add the LunixStatus script to the Linux PATH, I followed the following steps:
+
+First, I made sure that the LunixStatus script was in a directory that is not in the PATH. Let's say the script was located in my home directory: /home/user/LunixStatus
+
+Next, I moved the script to a directory that is in the PATH. One common directory to use is /usr/local/bin. I used the following command to move the script:
+
+bash
+Copy code
+sudo mv /home/user/LunixStatus /usr/local/bin/
+Then, I made the script executable using the following command:
+bash
+Copy code
+sudo chmod +x /usr/local/bin/LunixStatus
+Finally, I verified that the script was added to the PATH by typing LunixStatus in the terminal without the full path. If the script runs without any errors, it means that it is now recognized as any other command in the terminal.
+Now I can run the LunixStatus script from anywhere in the terminal by simply typing LunixStatus.
