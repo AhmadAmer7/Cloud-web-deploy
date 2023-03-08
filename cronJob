@@ -1,0 +1,11 @@
+Open the crontab configuration file for the current user by running the following command in the terminal:
+crontab -e
+This will open the cron configuration file in the default text editor. Add a new line to the file with the following format:
+0 0 * * * /path/to/second_script.sh
+This tells cron to run the script at midnight every day. The first two fields specify the minute and hour, respectively, and the last three fields specify the day of the month, month, and day of the week. In this case, all fields are set to * to match any value, except for the minute and hour fields which are set to 0 to indicate midnight.
+
+Replace deploy-web.sh with the actual path to your second script file.
+
+Save and close the file.
+
+Now the second script will be run automatically every day at midnight to fetch the latest code from the GitHub repository and update the website.
